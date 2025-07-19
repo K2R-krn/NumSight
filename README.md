@@ -1,4 +1,4 @@
-# NumSight 🔍  
+# NumSight📞🔍 – Intelligent Caller ID & Spam Detection API
 A Django-based backend system for phone number resolution, spam detection, and intelligent caller identification using REST APIs.
 
 ---
@@ -12,6 +12,7 @@ A Django-based backend system for phone number resolution, spam detection, and i
 ## ✨ Features
 
 - 🔗 **Caller ID Lookup** – Reverse search functionality by name or number.
+- 📊 **Call & Spam Reporting** – Endpoints to log call events and report numbers as spam, which automatically updates spam likelihood.
 - 🚫 **Spam Detection** – Flags spam-marked numbers using query-based detection logic.
 - 🔍 **Optimized Querying** – High-performance DB lookups via `Q` objects and indexed fields.
 - 🧠 **LLM-Driven Agent Support** – (Optional integration) for enhanced query handling.
@@ -33,6 +34,15 @@ A Django-based backend system for phone number resolution, spam detection, and i
 
 ---
 ## ⚙️ Setup Instructions
+
+### 1. Set Up Virtual Environment
+```bash
+python -m venv venv
+```
+Activate the virtual environment:
+
+
+
 
 ### 1. Clone the repo and Install Dependencies
 ```bash
