@@ -98,15 +98,7 @@ The API will now be accessible at http://127.0.0.1:8000/.
 
 ## 🔌 API Endpoints
 
-Here are some key endpoints (JWT auth required for protected routes):
-
-| Method | Endpoint               | Description                           |
-|--------|------------------------|---------------------------------------|
-| GET    | `/test`                | Verify token validity.                |
-| GET    | `/api/search/`         | Search contact by name or number      |
-| POST   | `/api/token/`          | Get access & refresh JWT tokens       |
-| POST   | `/api/token/refresh/`  | Refresh JWT access token              |
-| GET    | `/api/protected/`      | Example protected endpoint            |
+Here are key endpoints (JWT auth required for protected routes):
 
 | Method | Endpoint                    | Description                                                                             | Body/Query Params Example                                        |
 | :----- | :-------------------------- | :---------------------------------------------------------------------------------------| :--------------------------------------------------------------- |
