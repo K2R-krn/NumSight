@@ -35,21 +35,30 @@ A Django-based backend system for phone number resolution, spam detection, and i
 ---
 ## ⚙️ Setup Instructions
 
-### 1. Set Up Virtual Environment
+### 1. Clone the repo and Set Up Virtual Environment
+It's highly recommended to use a virtual environment.
 ```bash
 python -m venv venv
 ```
 Activate the virtual environment:
+- Windows :
+```bash
+.\venv\Scripts\activate
+```
+- maxOS/Linux :
+```bash
+source venv/bin/activate
+```
 
-
-
-
-### 1. Clone the repo and Install Dependencies
+### 2. Install Dependencies
+With your virtual environment activated, install all required Python packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Configure Database
+### 3. Configure Database
+Ensure your PostgreSQL server is running. Create a new database for the project (e.g., numsight_db).
+
 ```python
 DATABASES = {
     'default': {
@@ -62,18 +71,28 @@ DATABASES = {
     }
 }
 ```
-Make sure PostgreSQL is running and the database is created.
 
 ### 3. Run migrations and populate data
+Apply database migrations to set up the schema and then populate initial data using the provided script.
 ```bash
 python manage.py migrate
 python populate_data.py
 ```
 
-### 4. Start the development server
+### 4. Create a Superuser (Admin)
+Create a Django superuser to access the admin panel and obtain JWT tokens for API testing:
+```bash
+python manage.py createsuperuser
+```
+Follow the prompts to set your username, email, and password.
+
+
+### 5. Start the development server
 ```bash
 python manage.py runserver
 ```
+The API will now be accessible at http://127.0.0.1:8000/.
+
 
 
 
@@ -83,10 +102,21 @@ Here are some key endpoints (JWT auth required for protected routes):
 
 | Method | Endpoint               | Description                           |
 |--------|------------------------|---------------------------------------|
+| GET    | `/test`                | Verify token validity.                |
 | GET    | `/api/search/`         | Search contact by name or number      |
 | POST   | `/api/token/`          | Get access & refresh JWT tokens       |
 | POST   | `/api/token/refresh/`  | Refresh JWT access token              |
 | GET    | `/api/protected/`      | Example protected endpoint            |
+
+| Method | Endpoint                    | Description                                                                             | Body/Query Params Example                                        |
+| :----- | :-------------------------- | :---------------------------------------------------------------------------------------| :--------------------------------------------------------------- |
+| `GET`  | `/test/`                    | Simple authenticated endpoint to verify token validity.                                 | -                                                                |
+| `POST` | `/api/token/`               | Get access & refresh JWT tokens                                                         | -                                                                |
+| `POST` | `/api/token/refresh/`       | Refresh JWT access token                                                                | -                                                                |
+| `POST` | `/register/`                | Register a new `GlobalUser` or update an existing one (e.g., add name/email).           | `{"phone_number": "9876543210", "name": "John Doe", "email_address": "john@example.com"}` |
+| `POST` | `/call/`                    | Log a call event for a phone number. Increments `total_appearance` & `spam_likelyhood`. | `{"phone_number": "9988776655"}`                                 |
+| `POST` | `/spam/`                    | Report a phone number as spam. Increments `num_spam` & `spam_likelyhood`.               | `{"phone_number": "9988776655"}`                                 |
+| `GET`  | `/search/`                  | Search contacts by name or phone number.                                                | `?query=Alice&email=your_email@example.com`                      |
 
 📌 **Add Header:**
 
