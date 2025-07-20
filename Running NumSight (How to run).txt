@@ -1,0 +1,39 @@
+Running Truecaller..
+
+1. Open TruecallerV2-k in vs code. 
+2. Open this folder in terminal and follow below steps .
+3. Environment Setup - 
+	- python -m venv venv
+	- venv\Scripts\activate
+4. Install Dependencies
+	- pip install -r requirements.txt
+5. Configure the Database.
+	- check is PostgreSQL is running or no. It runs in bg and no frontend..
+	- Create new DB / Check existing DB if it exist..
+	- Configure DB setting with POSTGRESQL creds - in settings.py under /config
+		- If hp omen  - existing db name - 'truecallerk'
+		- user : postgres
+		- pass : val......123
+6. Run migrations and populate data
+	- python manage.py migrate
+	- python populate_data.py
+7. Create super User
+	- python manage.py createsuperuser
+8. Start Development server 
+	- python manage.py runserver
+
+=========================================================================
+ # Test API Endpoints
+1. Obtain JWT Access Token - POST - http://127.0.0.1:8000/api/token/ - add json with pass and username in body - will return access and refresh tokens. Copy access token.
+
+2. For any protected endpoint (e.g., /api/search/, /test/, /register/, /call/, /spam/), you must include the Authorization header with the Bearer token you obtained:
+Authorization: Bearer <your-access-token>
+ 
+example  - Add authorizqation access token and - http://127.0.0.1:8000/search/?query=john&email=your_email@example.com - GET - will return results..
+
+$ - /test endpoint - GET - returns 200OK if authenticated user that is valid JWT
+$ - /register - POST - BODY with phone_number, name, email_address register new  user
+$ - /call - POST - BODY with phone_number - add call log
+$ - /spam - POST - BODY with phone_number - add spam log
+$ - /search/?query=____ - GET -__ is name / phone number / email anything full or part - returns all possible matchings
+ 
